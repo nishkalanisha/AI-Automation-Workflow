@@ -1,0 +1,307 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1n2c5kNASOuKcNwMi6z9zTO1h-00spp7E8Q0atHKzZvs",
+          "mode": "list",
+          "cachedResultName": "Social Media Work Flow",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1n2c5kNASOuKcNwMi6z9zTO1h-00spp7E8Q0atHKzZvs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1n2c5kNASOuKcNwMi6z9zTO1h-00spp7E8Q0atHKzZvs/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -80
+      ],
+      "id": "0a6e7a1c-4713-42d7-a8ee-77d602d860f0",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "2hKAgAGvav6aac49",
+          "name": "Google Sheets Trigger account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=“Analyze this article and create a summary that:\n\n1. Captures the 3 most important insight\n\n\n\nArticle: {{ $json.ArticalLinks}}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "ec648751-7188-4a06-bc68-baba19c0303f",
+      "name": "summarize Articallinks"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -128,
+        144
+      ],
+      "id": "5bbf180c-e930-4405-ad60-50aaa608373a",
+      "name": "Open AI model- Artical summrize",
+      "credentials": {
+        "openAiApi": {
+          "id": "GlDSuE27DAr3EVZE",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        -64
+      ],
+      "id": "e8c7342b-3a9c-44ca-914e-458dbdb440ea",
+      "name": "Open AI model- Artical summrize1",
+      "credentials": {
+        "openAiApi": {
+          "id": "GlDSuE27DAr3EVZE",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Assume the role of an industry expert and draft a LinkedIn post discussing key points from a news article relevant to artificial intelligence. The post should provide insightful analysis, connect with current industry trends, highlight any notable challenges or opportunities, and encourage professional engagement and discussion.\n\nHere’s a summary of the article: {{ $json.text }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        416,
+        -272
+      ],
+      "id": "d9fa749d-46d4-4637-9df8-30e637aefd8a",
+      "name": "Linkedln LLM Chain Node"
+    },
+    {
+      "parameters": {
+        "person": "Nwkq2uyyGE",
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        752,
+        -304
+      ],
+      "id": "02bdd72f-8e39-45e2-8ce8-ef15ae17ecaf",
+      "name": "Post to Linkeldn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "c4gOPBGe7WjOWq94",
+          "name": "LinkedIn account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        496
+      ],
+      "id": "5595cf4a-fdb7-4290-8be0-f1b159b29999",
+      "name": "Open AI model- Artical summrize2",
+      "credentials": {
+        "openAiApi": {
+          "id": "GlDSuE27DAr3EVZE",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Deliver sharp insights on the article’s main points\n\nConnect to current AI trends\n\nSpark discussion with a thought-provoking question\n\nBe punchy and engaging\n\nEnd with a clear call to action\n\nLength: Within 30 words\n\n\nFocus: What matters most to the AI community. Make every word count\nArtical summary: {{ $\n.text}}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        416,
+        272
+      ],
+      "id": "6f831dba-5a19-4d02-96f2-2b44f5fefc2f",
+      "name": "OpenAI Model-Z summarize"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        768,
+        272
+      ],
+      "id": "12c0de6c-723c-466f-8a48-75750eeb3e63",
+      "name": "Post to X(Twitter)",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "f13O14bD66eupKeM",
+          "name": "X account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "summarize Articallinks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open AI model- Artical summrize": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "summarize Articallinks",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "summarize Articallinks": {
+      "main": [
+        [
+          {
+            "node": "Linkedln LLM Chain Node",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "OpenAI Model-Z summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open AI model- Artical summrize1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Linkedln LLM Chain Node",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Linkedln LLM Chain Node": {
+      "main": [
+        [
+          {
+            "node": "Post to Linkeldn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post to Linkeldn": {
+      "main": [
+        []
+      ]
+    },
+    "Open AI model- Artical summrize2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "OpenAI Model-Z summarize",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model-Z summarize": {
+      "main": [
+        [
+          {
+            "node": "Post to X(Twitter)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0d4c0e0a-bbda-4a2c-814b-fa84bdc681c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bf6ef62c7a3df3e864be0193dea485368c96ad02861035f29bbb739673590e0a"
+  },
+  "id": "NGgHrcBneg3sEn7Q",
+  "tags": []
+}
